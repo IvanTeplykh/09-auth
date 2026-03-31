@@ -31,12 +31,12 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
 
 export const getMe = async (): Promise<any> => {
   const headers = await getHeaders();
-  const { data } = await api.get(`/user/me`, { headers });
+  const { data } = await api.get(`/users/me`, { headers });
   return data;
 };
 
 export const checkSession = async (): Promise<any> => {
   const headers = await getHeaders();
-  const { data } = await api.get(`/auth/check-session`, { headers });
+  const { data } = await api.get(`/auth/session`, { headers });
   return data;
 };

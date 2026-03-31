@@ -58,16 +58,16 @@ export const logout = async (): Promise<void> => {
 };
 
 export const checkSession = async (): Promise<any> => {
-  const { data } = await api.get(`/auth/check-session`);
+  const { data } = await api.get(`/auth/session`);
   return data;
 };
 
 export const getMe = async (): Promise<any> => {
-  const { data } = await api.get(`/user/me`);
+  const { data } = await api.get(`/users/me`);
   return data;
 };
 
 export const updateMe = async (email: string, userName: string): Promise<any> => {
-  const { data } = await api.patch(`/user/me`, { email, userName });
+  const { data } = await api.patch(`/users/me`, { email, userName });
   return data;
 };

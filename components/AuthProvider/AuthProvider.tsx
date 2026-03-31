@@ -3,7 +3,7 @@
 import { useAuthStore } from "../../lib/store/authStore";
 import { ReactNode, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { checkSession, logout } from "../../lib/api/clientApi";
+import { checkSession, logout, getMe } from "../../lib/api/clientApi";
 
 const privateRoutes = ["/profile", "/notes"];
 
@@ -20,9 +20,20 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const verifySession = async () => {
       try {
-        const session = await checkSession();
-        if (session) {
-          setUser(session.user || { email: "verified@user.com" }); // Assuming session returns user
+        let session = await checkSession();
+        
+        // If session exists but no user info, try getMe() as a fallback
+        if (session && !session.user && !session.email && !session.username) {
+          try {
+            const user = await getMe();
+            if (user) session = user;
+          } catch (e) {
+            console.error("Session check succeeded but getMe failed:", e);
+          }
+        }
+
+        if (session && (session.user || session.email || session.username)) {
+          setUser(session.user || session);
         } else {
           handleAuthFailure();
         }

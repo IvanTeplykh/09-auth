@@ -23,7 +23,7 @@ export default function SignUpPage() {
       await register(email, password);
       router.push("/profile");
     } catch (err: any) {
-      setError(err.response?.data?.message || "Something went wrong during registration. Please try again.");
+      setError(err.response?.data?.message || "Registration failed");
     } finally {
       setIsLoading(false);
     }

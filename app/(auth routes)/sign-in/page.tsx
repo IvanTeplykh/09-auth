@@ -7,11 +7,13 @@ import css from "./SignInPage.module.css";
 
 export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
+    setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email") as string;
@@ -22,6 +24,8 @@ export default function SignInPage() {
       router.push("/profile");
     } catch (err: any) {
       setError(err.response?.data?.message || "Invalid email or password");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -38,6 +42,7 @@ export default function SignInPage() {
             name="email"
             className={css.input}
             required
+            disabled={isLoading}
           />
         </div>
 
@@ -49,12 +54,13 @@ export default function SignInPage() {
             name="password"
             className={css.input}
             required
+            disabled={isLoading}
           />
         </div>
 
         <div className={css.actions}>
-          <button type="submit" className={css.submitButton}>
-            Log in
+          <button type="submit" className={css.submitButton} disabled={isLoading}>
+            {isLoading ? "Logging in..." : "Log in"}
           </button>
         </div>
 
