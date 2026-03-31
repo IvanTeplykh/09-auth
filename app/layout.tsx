@@ -6,6 +6,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { Roboto } from "next/font/google";
 import { Metadata } from "next";
+import AuthProvider from "../components/AuthProvider/AuthProvider";
 
 const roboto = Roboto({
   weight: ["400", "500", "700"],
@@ -43,11 +44,13 @@ export default function RootLayout({
     <html lang="en" className={roboto.variable}>
       <body>
         <TanStackProvider>
-          <Header />
-          {children}
-          {modal}
-          <Footer />
-          <Toaster />
+          <AuthProvider>
+            <Header />
+            {children}
+            {modal}
+            <Footer />
+            <Toaster />
+          </AuthProvider>
         </TanStackProvider>
       </body>
     </html>
