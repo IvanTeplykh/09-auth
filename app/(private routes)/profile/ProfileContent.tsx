@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useAuthStore } from "../../../lib/store/authStore";
 import css from "./ProfilePage.module.css";
 import Image from "next/image";
+import { updateMe } from "../../../lib/api/clientApi";
 
 export default function ProfileContent() {
   const { user } = useAuthStore();

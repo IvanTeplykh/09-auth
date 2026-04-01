@@ -67,7 +67,7 @@ export const getMe = async (): Promise<any> => {
   return data;
 };
 
-export const updateMe = async (email: string, userName: string): Promise<any> => {
-  const { data } = await api.patch(`/users/me`, { email, userName });
+export const updateMe = async (email: string, userName: string, avatarUrl?: string): Promise<any> => {
+  const { data } = await api.patch(`/users/me`, { email, userName, avatarUrl });
   return data;
 };
