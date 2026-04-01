@@ -51,7 +51,7 @@ export async function proxy(request: NextRequest) {
   }
 
   if (isPublicOnlyRoute && isAuthorized) {
-    return NextResponse.redirect(new URL("/profile", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return response;
