@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: PageProps) {
       openGraph: {
         title: `${note.title} | NoteHub`,
         description: note.content.substring(0, 150),
-        url: `https://example.com/notes/${id}`,
+        url: `https://notehub-demo.vercel.app/notes/${id}`,
         images: [
           {
             url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: PageProps) {
       openGraph: {
         title: `Note ${id} | NoteHub`,
         description: `Details for note ${id}`,
-        url: `https://example.com/notes/${id}`,
+        url: `https://notehub-demo.vercel.app/notes/${id}`,
         images: [
           {
             url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',

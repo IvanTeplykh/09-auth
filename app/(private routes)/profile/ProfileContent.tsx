@@ -4,10 +4,11 @@ import Link from "next/link";
 import { useAuthStore } from "../../../lib/store/authStore";
 import css from "./ProfilePage.module.css";
 import Image from "next/image";
-import { updateMe } from "../../../lib/api/clientApi";
+import { User } from "../../../types/user";
 
-export default function ProfileContent() {
-  const { user } = useAuthStore();
+export default function ProfileContent({ user: serverUser }: { user?: User }) {
+  const { user: clientUser } = useAuthStore();
+  const user = serverUser || clientUser;
 
   return (
     <main className={css.mainContent}>

@@ -1,4 +1,20 @@
+import { Metadata } from 'next';
 import css from './Home.module.css';
+
+export const metadata: Metadata = {
+  title: 'Home | NoteHub',
+  description: 'NoteHub - Your central place for organizing personal thoughts and notes with ease.',
+  openGraph: {
+    title: 'Home | NoteHub',
+    description: 'NoteHub - Your central place for organizing personal thoughts and notes with ease.',
+    url: 'https://notehub-demo.vercel.app',
+    images: [
+      {
+        url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+      },
+    ],
+  },
+};
 
 export default function Home() {
   return (

@@ -20,20 +20,16 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const verifySession = async () => {
       try {
-        let session = await checkSession();
+        const { success } = await checkSession();
         
-        // If session exists but no user info, try getMe() as a fallback
-        if (session && !session.user && !session.email && !session.username) {
+        if (success) {
           try {
             const user = await getMe();
-            if (user) session = user;
+            setUser(user);
           } catch (e) {
             console.error("Session check succeeded but getMe failed:", e);
+            handleAuthFailure();
           }
-        }
-
-        if (session && (session.user || session.email || session.username)) {
-          setUser(session.user || session);
         } else {
           handleAuthFailure();
         }

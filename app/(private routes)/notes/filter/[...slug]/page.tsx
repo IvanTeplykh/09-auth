@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: FilterPageProps) {
     openGraph: {
       title: `Notes - ${tag} | NoteHub`,
       description: `Browse notes filtered by ${tag} in NoteHub`,
-      url: `https://example.com/notes/filter/${slug ? slug.join('/') : 'all'}`,
+      url: `https://notehub-demo.vercel.app/notes/filter/${slug ? slug.join('/') : 'all'}`,
       images: [
         {
           url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',

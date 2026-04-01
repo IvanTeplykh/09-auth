@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { api } from '../../api';
 import { cookies } from 'next/headers';
-import { parseSetCookie } from '../../../../lib/api/cookie-utils';
+import { parse } from 'cookie';
 import { isAxiosError } from 'axios';
 import { logErrorResponse } from '../../_utils/utils';
 
@@ -16,14 +16,14 @@ export async function POST(req: NextRequest) {
     if (setCookie) {
       const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
       for (const cookieStr of cookieArray) {
-        const parsed = parseSetCookie(cookieStr);
+        const parsed = parse(cookieStr);
         const options = {
-          expires: parsed.expires ? new Date(parsed.expires) : undefined,
-          path: parsed.path,
-          maxAge: Number(parsed.maxAge),
+          Expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
+          Path: parsed.Path,
+          'Max-Age': parsed['Max-Age'] ? Number(parsed['Max-Age']) : undefined,
         };
-        if (parsed.accessToken) cookieStore.set('accessToken', parsed.accessToken, options);
-        if (parsed.refreshToken) cookieStore.set('refreshToken', parsed.refreshToken, options);
+        if (parsed.accessToken) cookieStore.set('accessToken', parsed.accessToken, options as any);
+        if (parsed.refreshToken) cookieStore.set('refreshToken', parsed.refreshToken, options as any);
       }
 
       return NextResponse.json(apiRes.data, { status: apiRes.status });

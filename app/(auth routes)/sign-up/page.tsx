@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { register } from "../../../lib/api/clientApi";
+import { useAuthStore } from "../../../lib/store/authStore";
 import css from "./SignUp.module.css";
 
 export default function SignUpPage() {
+  const { setUser } = useAuthStore();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +22,8 @@ export default function SignUpPage() {
     const password = formData.get("password") as string;
 
     try {
-      await register(email, password);
+      const user = await register({ email, password });
+      setUser(user);
       router.push("/profile");
     } catch (err: any) {
       setError(err.response?.data?.message || "Registration failed");
